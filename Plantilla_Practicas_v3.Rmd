@@ -222,7 +222,9 @@ Los ficheros JSON (*JavaScript Object Notation*) son ficheros de texto que conti
 3.  Almacena los resultados en `FileCodificado.RData` dentro de la carpeta `results`.
 
 ```{r}
-
+library(jsonlite)
+fcod <- read_json("data/FileCodificado.json", simplifyVector = TRUE) #con el simplify te lo convierte a un dataframe mucho más visual
+save(fcod, file="data/results/FileCodificado.RData")
 ```
 
 ## 7.3 Inspección de los datos

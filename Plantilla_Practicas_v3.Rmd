@@ -3,12 +3,10 @@ title: "Práctica 1"
 author: "David Ferrer Oltra"
 date: "`r Sys.Date()`"
 output:
-  bookdown::pdf_document2:
+  pdf_document:
     toc: true
     toc_depth: 3
     number_sections: true
-    figure_caption: "Figura" # Referencias en castellano
-    table_caption: "Tabla"
   html_document:
     echo: true
     number_sections: true
@@ -18,10 +16,12 @@ output:
     echo: true
     number_sections: true
     toc: true
-  pdf_document:
+  bookdown::pdf_document2:
     toc: true
     toc_depth: 3
     number_sections: true
+    figure_caption: "Figura" # Referencias en castellano
+    table_caption: "Tabla"
   bookdown::html_document2:
     echo: true
     number_sections: true
@@ -29,27 +29,20 @@ output:
     toc: true
     figure_caption: "Figura"
     table_caption: "Tabla"
-always_allow_html: true
-params:
-  lang: ES
-lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
-subtitle: "Introducción a la Ciencia de Datos. Máster en Ciencia de Datos- UV"
-language:
-  label:
-    fig: 'Figura '
-    tab: 'Tabla '
-    eq: 'Ecuación '
-    thm: 'Teorema '
-    lem: 'Lema '
-    def: 'Definición '
-    cor: 'Corolario '
-    prp: 'Proposición '
-    exm: 'Ejemplo '
-    exr: 'Ejercicio '
-    proof: 'Demostración. '
-    remark: 'Nota: '
-    solution: 'Solución. '
 ---
+
+```{r}
+install.packages(c(
+  "hms",
+  "readr",
+  "haven",
+  "jsonlite",
+  "readxl",
+  "knitr",
+  "rmarkdown",
+  "bookdown"
+))
+```
 
 # 2 Ejemplo: fichero *DFP1_11122015 124700.csv*
 
@@ -264,6 +257,7 @@ tail(iris_read)
 summary(iris_read)
 
 ```
+
 ```{r}
 #descripcion y metricas del metodo fromjson (DATA.FRAME)
 str(iris_from)

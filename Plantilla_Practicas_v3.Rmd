@@ -133,9 +133,11 @@ Podemos leer ficheros de IBM SPSS mediante la librería `haven`.
 2.  Guardar el data frame con `save` en la carpeta `results`.
 
 ```{r}
-download.packages("haven")
 library(haven)
 
+psychbike <- read_sav("data/PsychBike.sav")
+
+save(psychbike, file="data/results/4.1.RData")
 ```
 
 ## 4.2 Inspección de los datos

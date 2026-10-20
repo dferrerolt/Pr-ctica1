@@ -73,7 +73,7 @@ language:
   DFP1$HORA <- as_hms(as.character(DFP1$HORA))
   
 #4)
-  save(DFP1, file = "./data/results/2.1.RData")
+  save(DFP1, file = "./data/results/Deposito.RData")
     
 ```
 
@@ -109,7 +109,7 @@ Una vez descargado el fichero Bakery Sales Dataset, podemos leerlo con `read.csv
   View(bakery_sales_revised) #datetime se muestra como tipo DateTime
   
 #3)
-  save(bakery_sales_revised, file="data/results/3.3.RData")
+  save(bakery_sales_revised, file="data/results/BreadBasket.RData")
 ```
 
 ## 3.2 Inspección de los datos
@@ -137,7 +137,7 @@ library(haven)
 
 psychbike <- read_sav("data/PsychBike.sav")
 
-save(psychbike, file="data/results/4.1.RData")
+save(psychbike, file="data/results/PsychBike.RData")
 ```
 
 ## 4.2 Inspección de los datos
@@ -183,7 +183,9 @@ unzip("data/data/iris.zip", exdir="data/data")
 3.  Guarda el data frame con `save` en la carpeta `results`.
 
 ```{r}
+iris <- read.table("data/data/iris.data", sep = ",", col.names = c("sep_length","sep_width","petal_length","petal_width","class"))
 
+save(iris,file="data/results/iris.RData")
 
 ```
 
@@ -192,7 +194,11 @@ unzip("data/data/iris.zip", exdir="data/data")
 Inspecciona los datos con `str`, `head`, `tail` y `summary`.
 
 ```{r}
-
+#se pueden conprobar los cambios de lso nombres de las variables y sus métricas
+str(iris)
+head(iris)
+tail(iris)
+summary(iris) #en este caso salen las metricas por columnas
 ```
 
 # 7 Fichero JSON *FileCodificado.json*

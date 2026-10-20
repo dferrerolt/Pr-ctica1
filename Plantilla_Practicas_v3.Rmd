@@ -1,0 +1,317 @@
+---
+title: "Práctica 1"
+author: "David Ferrer Oltra"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    figure_caption: "Figura" # Referencias en castellano
+    table_caption: "Tabla"
+  html_document:
+    echo: true
+    number_sections: true
+    theme: lumen
+    toc: true
+  html_notebook:
+    echo: true
+    number_sections: true
+    toc: true
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+  bookdown::html_document2:
+    echo: true
+    number_sections: true
+    theme: spacelab
+    toc: true
+    figure_caption: "Figura"
+    table_caption: "Tabla"
+always_allow_html: true
+params:
+  lang: ES
+lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
+subtitle: "Introducción a la Ciencia de Datos. Máster en Ciencia de Datos- UV"
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
+---
+
+# 2 Ejemplo: fichero *DFP1_11122015 124700.csv*
+
+## 2.1 Importación del fichero
+
+1.  Usar la herramienta de importación para previsualizar el resultado final. Compara las opciones `base` y `readr`.
+2.  Leer el fichero con `read.csv` y el parámetro `stringsAsFactors = FALSE`.
+3.  Convertir fecha y hora con `as.POSIXlt` y `as.hms`.
+4.  Almacenar con `save` en una carpeta con nombre `results` dentro de la carpeta `data`.
+
+```{r}
+#1) la principal diferencia entre base y readr es la separación entre los valores de las muestras 
+
+#2) 
+  DFP1 <- read.csv("./data/DFP1_11122015 124700.csv", sep="\t" ,stringsAsFactors = TRUE)
+
+#3)
+  DFP1$FECHA <- as.POSIXlt(DFP1$FECHA, format = "%dd/%mm/%YYYY")
+
+  library(hms)
+  DFP1$HORA <- as_hms(as.character(DFP1$HORA))
+  
+#4)
+  save(DFP1, file = "./data/results/2.1.RData")
+    
+```
+
+## 2.2 Inspección de los datos
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`. Describe qué información proporciona cada uno de ellos.
+
+```{r}
+
+str(DFP1) # devuelve una descripción detallada de cada variable del dataframe
+head(DFP1,2) # devuelve las n primeras muestras
+tail(DFP1,2) # devuelve las n ultimas muestras
+summary(as.character(DFP1)) #devuelve una serie de metricas como tamaño, valores unicos, máximos, mínimos, etc...
+
+```
+
+# 3 Fichero *Transactions from a Bakery* (Kaggle)
+
+## 3.1 Importación del fichero
+
+Una vez descargado el fichero Bakery Sales Dataset, podemos leerlo con `read.csv` y transformar los datos a los tipos correctos. Otra opción es utilizar la librería `readr` para especificar directamente los tipos de datos.
+
+1.  Utiliza *Import Dataset* de RStudio, opción `readr`, para previsualizar el fichero y especificar los tipos de datos.
+2.  Copia el código resultante y comprueba la lectura de datos.
+3.  Guarda el data frame con `save` en la carpeta `results`.
+
+```{r}
+
+#1-2) 
+  library(readr)
+  bakery_sales_revised <- read_csv("data/bakery_sales_revised.csv", 
+    col_types = cols(date_time = col_datetime(format = "%m/%d/%Y %H:%M")))
+  View(bakery_sales_revised) #datetime se muestra como tipo DateTime
+  
+#3)
+  save(bakery_sales_revised, file="data/results/3.3.RData")
+```
+
+## 3.2 Inspección de los datos
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`.
+
+```{r}
+str(bakery_sales_revised) # igual que antes, ahora vems el cambio de tipo de datetipe
+head(bakery_sales_revised,2) # 2 primeras filas
+tail(bakery_sales_revised,2) # 2 ultimas filas
+summary(as.character(bakery_sales_revised)) #devuelve una serie de metricas como tamaño, valores unicos, máximos, mínimos, etc...
+```
+
+# 4 Fichero SPSS *PsychBike.sav*
+
+## 4.1 Importación del fichero
+
+Podemos leer ficheros de IBM SPSS mediante la librería `haven`.
+
+1.  Leer el fichero con `read_sav`.
+2.  Guardar el data frame con `save` en la carpeta `results`.
+
+```{r}
+download.packages("haven")
+library(haven)
+
+```
+
+## 4.2 Inspección de los datos
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`.
+
+```{r}
+
+```
+
+# 5 Fichero data *iris.zip*
+
+Visualiza la página web de los datos Iris del repositorio UCI Machine Learning, copia el enlace de descarga y guarda el archivo ZIP en la carpeta `data`.
+
+## 5.1 Descomprimir el fichero
+
+Utiliza la función `unzip` para descomprimirlo en la carpeta `data`.
+
+```{r}
+
+```
+
+# 6 Fichero data *iris.data*
+
+## 6.1 Importación del fichero
+
+1.  Utiliza la función `read_table` para importar los datos.
+2.  Cambia el nombre de las columnas por los que correspondan a la base de datos, consultando la información de la página web.
+3.  Guarda el data frame con `save` en la carpeta `results`.
+
+```{r}
+
+```
+
+## 6.2 Inspección de los datos
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`.
+
+```{r}
+
+```
+
+# 7 Fichero JSON *FileCodificado.json*
+
+## 7.1 Importación del fichero
+
+Los ficheros JSON (*JavaScript Object Notation*) son ficheros de texto que contienen datos. En R podemos importarlos con la librería `jsonlite`. Las funciones más empleadas son:
+
+- `read_json` y `write_json`: leen y escriben objetos R directamente desde o hacia ficheros JSON.
+- `toJSON`: obtiene una representación JSON de un objeto R.
+- `fromJSON`: convierte una representación JSON en un objeto R.
+
+```{r}
+
+```
+
+## 7.2 Importar el fichero `FileCodificado.json`
+
+1.  Abre el fichero `FileCodificado.json` con un editor de texto para observar su contenido.
+2.  Importa el fichero a R con `read_json`. Observa la importancia del parámetro `simplifyVector`.
+3.  Almacena los resultados en `FileCodificado.RData` dentro de la carpeta `results`.
+
+```{r}
+
+```
+
+## 7.3 Inspección de los datos
+
+Inspecciona los datos con `dim`, `str`, `head`, `tail` y `summary`.
+
+```{r}
+
+```
+
+# 8 Fichero JSON *iris_json.json*
+
+## 8.1 Importar el fichero `iris_json.json`
+
+1.  Abre el fichero `iris_json.json` con un editor de texto para observar su contenido.
+2.  Importa el fichero a R con `read_json`.
+3.  Importa el fichero a R con `fromJSON`. ¿Qué diferencia hay entre `read_json` y `fromJSON`?
+4.  Almacena los resultados en `iris_json.RData` dentro de `results`.
+
+```{r}
+
+```
+
+## 8.2 Inspección de los datos
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`.
+
+```{r}
+
+```
+
+## 8.3 Exportar datos en formato JSON
+
+Es importante saber cómo exportar datos en este formato.
+
+1.  Lee los datos `iris` almacenados previamente en `iris.RData` y guárdalos en JSON usando `write_json`. Abre el fichero con RStudio y comprueba el resultado.
+2.  Como alternativa, obtén la representación JSON de los datos con `toJSON` y almacénala con `write_file`. Observa la diferencia de usar o no el parámetro `pretty` en `toJSON`.
+
+```{r}
+
+```
+
+# 9 Fichero *ERCA.xlsx*
+
+## 9.1 Importación del fichero
+
+- Abre el Excel para ver qué contiene.
+- Como el fichero es irregular, `read_excel` puede no detectar automáticamente los tipos de datos y leerlos como caracteres.
+- Fechas: indica el tipo `date` en `col_types` si es necesario.
+- Formatos numéricos: indica el tipo en `col_types` o convierte después con `as.numeric`.
+- Guarda los datos en formato `.RData` dentro de `results`.
+
+```{r}
+
+```
+
+## 9.2 Inspección de los datos
+
+- Utiliza las funciones `head`, `tail`, `str` y `summary` para inspeccionar el fichero.
+- Limpia el data frame descartando las filas con `NA` en la primera columna (`IDENTIFICA`).
+
+```{r}
+
+```
+
+# 10 Fichero *subjectInfo.xlsx*
+
+## 10.1 Importación del fichero
+
+1.  Lee cada hoja (hasta cuatro) en data frames separados (`Hoja1`, `Hoja2`, etc.) usando `read_excel` y el parámetro `sheet`.
+2.  Lee todas las hojas automáticamente:
+    - Usa `excel_sheets` para obtener los nombres de las hojas y guárdalos en la variable `sheets`.
+    - Usa un bucle `for` sobre los nombres devueltos por `excel_sheets`. Guarda los resultados en una lista creada con `df <- list()` y añade los elementos con `df[[n]]`.
+3.  En lugar de un bucle `for`, utiliza `lapply`:
+    - Define una función que llame a `read_excel` y tome como parámetro la hoja que debe leer.
+    - Asigna los nombres de las hojas a la lista con `names(x) <- sheets`.
+4.  Guarda el resultado con `save` en `results`.
+
+```{r}
+
+```
+
+## 10.2 Inspección de los datos
+
+Inspecciona los datos con `str` (prueba diferentes valores de `max.level`), `head`, `tail` y `summary`.
+
+```{r}
+
+```
+
+# 11 Fichero (HDF5) *Robot.hdf5*
+
+Un posible paquete para importar estos ficheros se encuentra en `BiocManager`. Dentro de este paquete se encuentra la librería `rhdf5`.
+
+```{r}
+
+```
+
+## 11.1 Inspección del fichero
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`.
+
+¿Cuántas variables tiene el fichero y de qué tipo son (vectores, matrices, etc.)? ¿Puedes explicar la salida de `head` y `tail`?
+
+```{r}
+
+```
+
+## 11.2 Reading file
+
+Accede al grupo `POSMONInput` para leer la variable `Auto`. Transforma la salida en un data frame, indica cuántos valores únicos tiene y guarda los datos en formato `.RData` dentro de `results`.
+
+```{r}
+
+```

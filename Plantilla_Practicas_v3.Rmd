@@ -162,6 +162,16 @@ Utiliza la función `unzip` para descomprimirlo en la carpeta `data`.
 
 ```{r}
 
+url <- "https://archive.ics.uci.edu/static/public/53/iris.zip"
+
+download.file(
+  url = url,
+  destfile = "data/data/iris.zip",
+  mode = "wb"
+)
+
+
+unzip("data/data/iris.zip", exdir="data/data")
 ```
 
 # 6 Fichero data *iris.data*
@@ -173,6 +183,7 @@ Utiliza la función `unzip` para descomprimirlo en la carpeta `data`.
 3.  Guarda el data frame con `save` en la carpeta `results`.
 
 ```{r}
+
 
 ```
 

@@ -211,10 +211,6 @@ Los ficheros JSON (*JavaScript Object Notation*) son ficheros de texto que conti
 - `toJSON`: obtiene una representación JSON de un objeto R.
 - `fromJSON`: convierte una representación JSON en un objeto R.
 
-```{r}
-
-```
-
 ## 7.2 Importar el fichero `FileCodificado.json`
 
 1.  Abre el fichero `FileCodificado.json` con un editor de texto para observar su contenido.
@@ -232,7 +228,11 @@ save(fcod, file="data/results/FileCodificado.RData")
 Inspecciona los datos con `dim`, `str`, `head`, `tail` y `summary`.
 
 ```{r}
-
+#se aprecian las 22 columnas distintas con sus 83 filas
+str(fcod)
+head(fcod)
+tail(fcod)
+summary(fcod)
 ```
 
 # 8 Fichero JSON *iris_json.json*

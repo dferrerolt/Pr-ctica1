@@ -185,7 +185,7 @@ unzip("data/data/iris.zip", exdir="data/data")
 ```{r}
 iris <- read.table("data/data/iris.data", sep = ",", col.names = c("sep_length","sep_width","petal_length","petal_width","class"))
 
-save(iris,file="data/results/iris.RData")
+save(iris,file="data/results/iris6.RData")
 
 ```
 
@@ -245,7 +245,11 @@ summary(fcod)
 4.  Almacena los resultados en `iris_json.RData` dentro de `results`.
 
 ```{r}
+#la diferencia principal entre los dos metodos es que en read_json por defecto devuelve una lista, mientras que el fromJSON por defecto te devuelve un data.frame
+iris_read <- read_json("data/iris_json.json")
+iris_from <- fromJSON("data/iris_json.json")
 
+save(iris_read,iris_from,file = "data/results/iris.RData")
 ```
 
 ## 8.2 Inspección de los datos
@@ -253,7 +257,19 @@ summary(fcod)
 Inspecciona los datos con `str`, `head`, `tail` y `summary`.
 
 ```{r}
+#descripcion y métricas del método read_json (LISTA)
+str(iris_read)
+head(iris_read)
+tail(iris_read)
+summary(iris_read)
 
+```
+```{r}
+#descripcion y metricas del metodo fromjson (DATA.FRAME)
+str(iris_from)
+head(iris_from)
+tail(iris_from)
+summary(iris_from)
 ```
 
 ## 8.3 Exportar datos en formato JSON
@@ -264,7 +280,16 @@ Es importante saber cómo exportar datos en este formato.
 2.  Como alternativa, obtén la representación JSON de los datos con `toJSON` y almacénala con `write_file`. Observa la diferencia de usar o no el parámetro `pretty` en `toJSON`.
 
 ```{r}
+datos <- load("data/results/iris.RData")
 
+#hay que tener en cuenta que hay 2 variables guardadas en iris.RData
+write_json(
+  list(
+    iris_read = iris_read,
+    iris_from = iris_from
+  ),
+  path = "data/results/nuevojson.JSON"
+)
 ```
 
 # 9 Fichero *ERCA.xlsx*

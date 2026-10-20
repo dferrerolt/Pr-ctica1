@@ -145,6 +145,10 @@ save(psychbike, file="data/results/4.1.RData")
 Inspecciona los datos con `str`, `head`, `tail` y `summary`.
 
 ```{r}
+str(psychbike)
+head(psychbike)
+tail(psychbike)
+summary(table(psychbike))
 
 ```
 
